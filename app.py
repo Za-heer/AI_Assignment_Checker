@@ -6,25 +6,27 @@ from pylint.lint import Run
 from pylint.reporters.text import TextReporter
 from io import StringIO
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.static_folder = 'static'
 
-# Load CodeBERT with error handling
+# Load CodeBERT globally (once at startup)
+tokenizer = None
+model = None
 try:
     tokenizer = AutoTokenizer.from_pretrained("microsoft/codebert-base")
     model = AutoModel.from_pretrained("microsoft/codebert-base")
+    if torch.cuda.is_available():
+        model.to('cuda')
+    print("CodeBERT loaded successfully.")
 except Exception as e:
     print(f"Error loading CodeBERT: {e}")
-    tokenizer = None
-    model = None
 
 def pylint_check(file_path):
     try:
         output = StringIO()
         reporter = TextReporter(output)
-        Run([file_path, '--disable=C0114,C0115,W0311,W0703,C0116,R0903,C0303,C0301', '--max-line-length=120'], reporter=reporter, exit=False)
+        Run([file_path, '--disable=C0114,C0115,C0116,R0903,W0311,W0703,C0303,C0301', '--max-line-length=120'], reporter=reporter, exit=False)
         pylint_output = output.getvalue()
         return pylint_output if pylint_output.strip() else "No critical issues found. Code looks good!"
     except Exception as e:
@@ -40,6 +42,8 @@ def analyze_code(file_path):
         codebert_feedback = "CodeBERT not loaded."
         if tokenizer and model:
             inputs = tokenizer(code, return_tensors="pt", truncation=True, max_length=512)
+            if torch.cuda.is_available():
+                inputs = {k: v.to('cuda') for k, v in inputs.items()}
             with torch.no_grad():
                 outputs = model(**inputs)
             codebert_feedback = f"Code analyzed with CodeBERT. Length: {len(code)} characters."
@@ -77,4 +81,4 @@ def upload_file():
 if __name__ == '__main__':
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5001)
