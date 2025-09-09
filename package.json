@@ -1,0 +1,25 @@
+{
+  "name": "ai_assignment_checker",
+  "version": "1.0.0",
+  "description": "Code Analyzer\r A Streamlit-based application to analyze Python (.py) and Jupyter Notebook (.ipynb) files using CodeBERT and Pylint.\r Project Structure",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhasnain619/AI_Assignment_checker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mhasnain619/AI_Assignment_checker/issues"
+  },
+  "homepage": "https://github.com/mhasnain619/AI_Assignment_checker#readme",
+  "dependencies": {
+    "eslint": "^9.32.0",
+    "htmlhint": "^1.6.3",
+    "stylelint": "^16.22.0"
+  }
+}

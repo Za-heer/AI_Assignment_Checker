@@ -35,7 +35,7 @@ st.markdown("""
     <div class="rainbow">Assignment Checker</div>
 """, unsafe_allow_html=True)
 
-st.write("Upload a Python (.py) or Jupyter Notebook (.ipynb) file to analyze its code quality.")
+st.write("Upload your Python (.py) or Jupyter Notebook (.ipynb) file to check its code quality.")
 
 # Input for student ID or name
 student_id = st.text_input("Enter Student ID or Name", value="Unknown")
