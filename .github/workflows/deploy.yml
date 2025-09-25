@@ -14,7 +14,7 @@ jobs:
         run: |
           git config --global user.email "mydocument783@gmail.com"
           git config --global user.name "Za_heer"
-          git remote add space https://huggingface.co/spaces/Za-heer/AI_Assignment_checker
+          git remote add space https://Za-heer:${HF_TOKEN}@huggingface.co/spaces/Za-heer/AI_Assignment_checker
           git push --force space main
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
