@@ -14,7 +14,6 @@ build/
 *.whl
 
 # Streamlit-specific ignores
-.streamlit/
 streamlit-geh.log
 
 # Jupyter Notebook ignores

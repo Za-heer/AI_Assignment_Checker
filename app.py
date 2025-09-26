@@ -125,21 +125,21 @@ if uploaded_files is not None:
            
             
     # Save results to Excel
-    if results:
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        excel_path = os.path.join(UPLOAD_FOLDER, f"analysis_results_{timestamp}.xlsx")
-        try:
-            df = pd.DataFrame(results)
-            df.to_excel(excel_path, index=False)
-            st.success(f"Analysis results saved to {excel_path}")
-            # Provide download link
-            with open(excel_path, 'rb') as f:
-                st.download_button(
-                    label="Download Analysis Results",
-                    data=f,
-                    file_name=f"analysis_results_{timestamp}.xlsx",
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                )
-        except Exception as e:
-            logger.error(f"Error saving results to Excel: {e}")
-            st.error(f"Error saving results to Excel: {str(e)}")
+    # if results:
+    #     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    #     excel_path = os.path.join(UPLOAD_FOLDER, f"analysis_results_{timestamp}.xlsx")
+    #     try:
+    #         df = pd.DataFrame(results)
+    #         df.to_excel(excel_path, index=False)
+    #         st.success(f"Analysis results saved to {excel_path}")
+    #         # Provide download link
+    #         with open(excel_path, 'rb') as f:
+    #             st.download_button(
+    #                 label="Download Analysis Results",
+    #                 data=f,
+    #                 file_name=f"analysis_results_{timestamp}.xlsx",
+    #                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    #             )
+    #     except Exception as e:
+    #         logger.error(f"Error saving results to Excel: {e}")
+    #         st.error(f"Error saving results to Excel: {str(e)}")
